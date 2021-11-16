@@ -40,23 +40,40 @@ class ListNode(object):
 
 
 class Solution(object):
+    def get_nr_nodes(head):
+        nr_nodes = 0
+        while head.next is not None:
+            nr_nodes +=1
+            head = head.next
+        return nr_nodes
     def rotateRight(self, head, k):
         """
         :type head: ListNode
         :type k: int
         :rtype: ListNode
         """
+
+        # When the input rotation start to be repetitive? based on that k can be reduced.
+        # e.g. head input of 2 nodes become repepetive: 1,2 => 2,1 (r=1), 1,2 (r=2)
+        # e.g. head input of 3 nodes become repepetive: 1,2,3 => 3,1,2 (r=1), 2,3,1 (r=2), 1,2,3 (r=3)
+        # e.g. head input of 4 nodes become repepetive: 1,2,3,4 => 4,1,2,3 (r=1)=> 3,4,1,2 (r=2), 2,3,4,1 (r=3), 1,2,3,4 (r=4)
         
         if (head is None):
             return None
-        
-        head_copy = head
-        last_node = ListNode()
-        counter = 0
 
         if k == 0 :
             return head
-        
+
+        nr_nodes = get_nr_nodes(head)
+
+
+        print("\n HEAD START ", head)
+
+        head_copy = head
+        connection_head = head
+        last_node = ListNode()
+        counter = 0
+        nr_nodes = 1
         for i in range(k):
 
             if head_copy.next is None:
@@ -65,123 +82,66 @@ class Solution(object):
             else:         
                 while head_copy.next is not None:
                     
+                    # print("\n head ", head)
+                    # print("\n connection head ", connection_head )
+                    # print("\n last node ", last_node)
+
+
                     previous_node = head_copy
                     next_node = head_copy.next
-
-                    if next_node.next is None:
-                     #   print(next_node.next)
+                    if i == 0:
+                        nr_nodes +=1
+                    print("\n HEAD 1", head)
+                    if next_node.next is None:# or head_copy.next is None:
+                        print("\n next node:   ", next_node.next)
+                       #print("\n head_copy.next node:   ", head_copy.next)
                         counter += 1
                         previous_node.next = None # remove the link to the last node
                         previous_node = last_node
                         last_node = next_node 
-                        if counter == 1:
-                            last_node.next = head 
-                        else: last_node.next = previous_node
+                        print("\n last_node: ", last_node, " counter: ", counter, " nr of nodes ", nr_nodes)
+                        if counter == 1: # or nr_nodes == 2:
+                            print("HEAD HERE ", head)
+                            last_node.next = connection_head 
+                            print("\n last node: ", last_node, " \n WHAT HAPPENED TO HEAD: ", connection_head)
+                        else: 
+                            last_node.next = previous_node
+                            print("\n \n last_node!!!!1: ", last_node)
+
 
                     elif head_copy.next is not None:
                         head_copy = head_copy.next
 
                 head_copy = last_node
-        
+
+                #print("\n k : ", k, "  and nr_nodes ", nr_nodes)
+                if i == 0:
+                    if k >= nr_nodes and nr_nodes > 0: # k => how many times to rotate and nr_nodes => the number of nodes in head
+                        remining = k % nr_nodes #
+                        print("\n REMAINING ", remining)
+                        if remining == 0:
+                            print("\n HEAD ", head)
+                            return head
+                        else:
+                            provisional_k = k - remining 
+                            print("\n PROVISIONAL K after - remining ", provisional_k, "  remining ", remining)
+                            #provisional_k = provisional_k/nr_nodes
+                            #print("\n PROVISIONAL K ", provisional_k)
+                            provisional_k = remining - 1 # 1 => already done one itteration.
+                            print("\n PROVISIONAL K after remining added ", provisional_k)
+                            print("\n remining ", remining)
+                            k = provisional_k
+                            print("\n k is now: ", k)
+            
         rotated_head = last_node
-            
-        print(rotated_head)
+
+        print("\n head ", head)
+        print("\n connection head ", connection_head )
+        print("\n last node ", last_node)
+        print("\n rotated_head", rotated_head)
+
+        print("\n2", rotated_head, "\n")
         return rotated_head
-
-
-# class Solution(object):
-#     def rotateRight(self, head, k):
-#         """
-#         :type head: ListNode
-#         :type k: int
-#         :rtype: ListNode
-#         """
-# ### print(head) #=> output ListNode{val: 1, next: ListNode{val: 2, next: ListNode{val: 3, next: ListNode{val: 4, next: ListNode{val: 5, next: None}}}}}
-
-   
-#         # head is the main first Node and that one contain the nested next Node(s)
-# # OPTIONS:
-# ######## 1. 
-# #        loop through the linked list to get lenght of the linked list and "pop" (=remove and store in new node) the final node and its information.
-# #    
-# #        insert at the beginning and add info e.g. to the next node, head initialisatin.     
-# #        
-# #        loop k-1 times to repeat: remove last node - stored info thanks to the lenght of the linkedList, and insert it to the biginning + add information such as a new link to the next node
-      
-#       #PSEUDO CODE:
-#         # for i in range(k):
-#             # for node in head: 
-#                 #if node.next == null 
-#                     #last_node = node
-#                     #remove node
-#                     #remove link from previous
-#                     #add removed node to head and add info to next.
-#                 #previous_node = node
-            
-# # 
-# # 
-# #     
-
-#         # rotated_head = ListNode(444, head)
-#         #print(rotated_head)
-#         ######rotated_head = ListNode()
-#         head_copy = head
-#         last_node = ListNode()
-#         counter = 0
-
-#         for i in range(k):
-            
-#             #print(head_copy)
-            
-#             while head_copy.next is not None:
-#                     #print("test")
-#               #  print("HEAD COPY BEFORE CHANGE ", head_copy)
-#                # last_node = head_copy
-#                 previous_node = head_copy
-#                 print("\n HEAD_COPY/previous node  ", head_copy)
-#                 next_node = head_copy.next
-#                 print("\n next_node ", next_node)
-                
-#                # print("\n ROTATE SO FAR BULIT:   ", rotated_head)
-                
-#                 if next_node.next is None:
-#                     counter += 1
-#                     previous_node.next = None # remove the link to the last node
-#                     print("\n previous node: ", previous_node)
-#                     previous_node = last_node
-#                     last_node = next_node #in the while loop I already moved to next node
-#                     print("last node:   ",last_node)
-#                     #print(head)
-#                     if counter == 1:
-#                         last_node.next = head # BUG !!!!!!!!!!!!!! HERE setting last node at the beginning of the head.
-#                     else: last_node.next = previous_node
-
-#                     print("last node to seeeeeeeeee  ", last_node)
-#                     # rotated_head = last_node # for clarity I made a new attribute
-#                     # print("#####TEST ROTATED HEAD IN PROGRESS",rotated_head, "\n")
-#                     # head_copy = rotated_head
-#                     # print("----------- TEST IF HEAD_COPY WHENT WELL ", head_copy, "\n")
-#                     # # head_copy = rotated_head
-
-#                 elif head_copy.next is not None:
-#                     head_copy = head_copy.next
-
-#             head_copy = last_node
-        
-#         rotated_head = last_node
-            
-#                 #print(last_node)
-#                 #print("####HEAD COPY FATER UPDATE  ", head_copy)
-                
-#       #  print(rotated_head)        
-#             #print("testing this area")
-#             # last_node.next = head
-#             #print("#####TESTING PRINTING NEW ROTATED HEAD ", last_node)
-#             # rotated_head = last_node
-#             # print(rotated_head)
-#         #print(rotated_head)
-#         return rotated_head
-
 
 
 
@@ -191,9 +151,11 @@ class Solution(object):
 # head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, None)))))
 #print(head)
 
-head = ListNode(1, ListNode(2, ListNode(3, None)))
+#head = ListNode(1, ListNode(2, ListNode(3, None)))
+head = ListNode(1, ListNode(2, None))
 #head = ListNode(1, None)
-k = 2000000000
+#k = 2000000000 # 2,000,000,000 
+k = 2
 solution = Solution()
 solution.rotateRight(head, k)
 # print(solution.rotateRight(head, k))
