@@ -1,5 +1,45 @@
+# Given the head of a linked list, rotate the list to the right by k places.
+
+# Example 1:
+
+
+# Input: head = [1,2,3,4,5], k = 2
+# Output: [4,5,1,2,3]
+# Example 2:
+
+
+# Input: head = [0,1,2], k = 4
+# Output: [2,0,1]
+ 
+
+# Constraints:
+
+# The number of nodes in the list is in the range [0, 500].
+# -100 <= Node.val <= 100
+# 0 <= k <= 2 * 109
+
 
 # Definition for singly-linked list.
+class Iterator:
+   ''' Iterator class '''
+   def __init__(self, head):
+       # Team object reference
+       self._head = head
+       # member variable to keep track of current index
+       self._index = 0
+
+#    def __next__(self):
+#        ''''Returns the next value from team object's lists '''
+#        if self._index < (len(self._team._juniorMembers) + len(self._team._seniorMembers)) :
+#            if self._index < len(self._team._juniorMembers): # Check if junior members are fully iterated or not
+#                result = (self._team._juniorMembers[self._index] , 'junior')
+#            else:
+#                result = (self._team._seniorMembers[self._index - len(self._team._juniorMembers)]   , 'senior')
+#            self._index +=1
+#            return result
+#        # End of Iteration
+#        raise StopIteration
+
 class ListNode(object):
     def __init__(self, val=0, next=None):
         self.val = val
@@ -8,6 +48,10 @@ class ListNode(object):
 # I added this for me to be able to see it printed in SVC the same way as it is in LeetCode
     def __repr__(self):
         return "ListNode(val=" + str(self.val) + ", next={" + str(self.next) + "})"
+
+    def __iter__(self):
+       ''' Returns the Iterator object '''
+       return Iterator(self)
 
 
 class Solution(object):
