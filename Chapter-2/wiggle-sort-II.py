@@ -23,9 +23,54 @@
 # Follow Up: Can you do it in O(n) time and/or in-place with O(1) extra space?
 
 
+
+
 class Solution(object):
+
     def wiggleSort(self, nums):
         """
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
+
+        ####### option 2
+        # sort the array and pop one from the beginning for odd possitions
+        # then pop always the end item from sorted for even possitions until items are in the sorted.    
+
+        sorted_arr = []
+        odd_pos_item = 0
+        even_pos_item = 0
+      # I MUST DO QUICKSORT  
+        quicksorted = [1,1,1,4,5,6]
+
+        for i in range (len(quicksorted)):
+            if (i+1) % 2 != 0:
+                odd_pos_item = quicksorted.pop(0)
+                sorted_arr.append(odd_pos_item)
+                print("\n ODD ",odd_pos_item)
+                print("\n SORTED ",sorted_arr)
+            elif (i+1) % 2 == 0:
+                even_pos_item = quicksorted.pop()
+                print("\n EVEN ",even_pos_item)
+                sorted_arr.append(even_pos_item)
+                print("\n SORTED ",sorted_arr)
+            
+
+
+        return sorted_arr
+
+
+
+
+
+
+
+nums = [1,5,1,1,6,4]
+#nums = [1,6,1,5,1,4] # dummy example sorted works well.
+solution = Solution()
+#solution.wiggleSort(nums)
+print(solution.wiggleSort(nums))
+
+
+
+
