@@ -41,12 +41,22 @@
 # The string lacks an x.
 
 """
-Solution:
+Solution 1 NOT WORKING: - missing restrictions for other symbols and characterous like 
+punctuation, numbers and math symbols
 - n number has the number of all letters in english alphabet
 - make a new empty arr
 - loop through the string s
 - chek if the char is already in the new arr if not add if yes skip
 - after loop if the n is the same as the lenght of arr return pangram otherwsie return nto pangram
+
+Solution 2:  WORKS!!
+- Create an array full of intetrgers representing the order in memory for letter a - z -->
+as the programming languages are in english...
+- loop through the string s
+- check if the order of the char from s is in the array of unique orders
+- if yes remove it fromt he unique orders array
+- after loop if the lenght of the unique orders array is 0 then return pangram else not pangram.
+
 """
 
 #!/bin/python3
@@ -63,57 +73,17 @@ import sys
 # The function is expected to return a STRING.
 # The function accepts STRING s as parameter.
 #
-import string
-
-# def pangrams(s):
-#     # Write your code here
-#     if len(s) > 0 and len(s) < 10**3:
-#         n = 26 # number of letters in english alphabet
-#         unique_char_arr = []
-#         translator = str.maketrans('','', string.punctuation)
-#         s = s.translate(translator)
-
-#         print(s)
-#         for char in str.lower(s):
-#             if char.isspace() == False:
-#                 if char not in unique_char_arr:
-#                     unique_char_arr.append(char)
-#                    # print(unique_char_arr)
-#         print("len", len(unique_char_arr))
-#         print("n ", n)
-#         if n == len(unique_char_arr):
-#             return "pangram"
-#         else:
-#             return "not pangram"
 
 def pangrams(s):
     # Write your code here
-    if len(s) > 0 and len(s) < 10**3:
-        unique_char_arr_ord = [ord_ for ord_ in range(ord('a'), ord('z'))]   #print([i**2 for i in range(10)])
-        #print(unique_char_arr_ord)
+    unique_char_arr_ord = [ord_ for ord_ in range(ord('a'), ord('z'))]   #print([i**2 for i in range(10)])
+    
+    for char in str.lower(s):
+        if ord(char) in unique_char_arr_ord:
+            unique_char_arr_ord.remove(ord(char))
 
+    return "pangram" if len(unique_char_arr_ord) == 0 else "not pangram"
 
-        translator = str.maketrans('','', string.punctuation)
-        s = s.translate(translator)
-
-       # print(s)
-        
-        for char in str.lower(s):
-            if char.isspace() == False:
-                if ord(char) in unique_char_arr_ord:
-                    unique_char_arr_ord.remove(ord(char))
-                    # print(ord(char))
-                    # print(unique_char_arr_ord)
-
-        return "pangram" if len(unique_char_arr_ord) == 0 else "not pangram"
-
-                   # print(unique_char_arr)
-        # print("len", len(unique_char_arr))
-        # print("n ", n)
-        # if n == len(unique_char_arr):
-        #     return "pangram"
-        # else:
-        #     return "not pangram"
 
 s = "We wwwww!!!!!@promptly judged antique ivory buckles for the next prize!"
 print(pangrams(s))
