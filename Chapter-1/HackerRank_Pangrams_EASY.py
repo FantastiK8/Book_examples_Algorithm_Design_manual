@@ -40,6 +40,14 @@
 # Sample Explanation 0
 # The string lacks an x.
 
+"""
+Solution:
+- n number has the number of all letters in english alphabet
+- make a new empty arr
+- loop through the string s
+- chek if the char is already in the new arr if not add if yes skip
+- after loop if the n is the same as the lenght of arr return pangram otherwsie return nto pangram
+"""
 
 #!/bin/python3
 
@@ -55,17 +63,38 @@ import sys
 # The function is expected to return a STRING.
 # The function accepts STRING s as parameter.
 #
+import string
 
 def pangrams(s):
     # Write your code here
+    if len(s) > 0 and len(s) < 10**3:
+        n = 26 # number of letters in english alphabet
+        unique_char_arr = []
+        translator = str.maketrans('','', string.punctuation)
+        s = s.translate(translator)
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+        print(s)
+        for char in str.lower(s):
+            if char.isspace() == False:
+                if char not in unique_char_arr:
+                    unique_char_arr.append(char)
+                   # print(unique_char_arr)
+        print("len", len(unique_char_arr))
+        print("n ", n)
+        if n == len(unique_char_arr):
+            return "pangram"
+        else:
+            return "not pangram"
 
-    s = input()
+s = "We wwwww!!!!!@promptly judged antique ivory buckles for the next prize!"
+print(pangrams(s))
+# if __name__ == '__main__':
+#     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    result = pangrams(s)
+#     s = input()
 
-    fptr.write(result + '\n')
+#     result = pangrams(s)
 
-    fptr.close()
+#     fptr.write(result + '\n')
+
+#     fptr.close()
