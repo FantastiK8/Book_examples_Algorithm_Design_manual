@@ -65,26 +65,55 @@ import sys
 #
 import string
 
+# def pangrams(s):
+#     # Write your code here
+#     if len(s) > 0 and len(s) < 10**3:
+#         n = 26 # number of letters in english alphabet
+#         unique_char_arr = []
+#         translator = str.maketrans('','', string.punctuation)
+#         s = s.translate(translator)
+
+#         print(s)
+#         for char in str.lower(s):
+#             if char.isspace() == False:
+#                 if char not in unique_char_arr:
+#                     unique_char_arr.append(char)
+#                    # print(unique_char_arr)
+#         print("len", len(unique_char_arr))
+#         print("n ", n)
+#         if n == len(unique_char_arr):
+#             return "pangram"
+#         else:
+#             return "not pangram"
+
 def pangrams(s):
     # Write your code here
     if len(s) > 0 and len(s) < 10**3:
-        n = 26 # number of letters in english alphabet
-        unique_char_arr = []
+        unique_char_arr_ord = [ord_ for ord_ in range(ord('a'), ord('z'))]   #print([i**2 for i in range(10)])
+        #print(unique_char_arr_ord)
+
+
         translator = str.maketrans('','', string.punctuation)
         s = s.translate(translator)
 
-        print(s)
+       # print(s)
+        
         for char in str.lower(s):
             if char.isspace() == False:
-                if char not in unique_char_arr:
-                    unique_char_arr.append(char)
+                if ord(char) in unique_char_arr_ord:
+                    unique_char_arr_ord.remove(ord(char))
+                    # print(ord(char))
+                    # print(unique_char_arr_ord)
+
+        return "pangram" if len(unique_char_arr_ord) == 0 else "not pangram"
+
                    # print(unique_char_arr)
-        print("len", len(unique_char_arr))
-        print("n ", n)
-        if n == len(unique_char_arr):
-            return "pangram"
-        else:
-            return "not pangram"
+        # print("len", len(unique_char_arr))
+        # print("n ", n)
+        # if n == len(unique_char_arr):
+        #     return "pangram"
+        # else:
+        #     return "not pangram"
 
 s = "We wwwww!!!!!@promptly judged antique ivory buckles for the next prize!"
 print(pangrams(s))
