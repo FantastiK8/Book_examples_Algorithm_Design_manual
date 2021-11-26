@@ -58,6 +58,16 @@ The second kangaroo has a starting location that is ahead (further to the right)
  rate (meaning v2 > v1) and is already ahead of the first kangaroo, the first kangaroo will 
  never be able to catch up. Thus, we print NO.
 
+
+Option Solution 1:
+* max distance is 10000
+
+- check if x1 == x2 if yes return YES else do:
+- while x1 or x2 is not equal or bigger 10000 or x1 is not equal x2 do:
+- take x1 add v1 and take x2 and add v2
+- check if x1 is equal x2 if yes return YES else repeat
+
+
 """
 
 
@@ -82,22 +92,52 @@ import sys
 
 def kangaroo(x1, v1, x2, v2):
     # Write your code here
+    max_position = 10000
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    if x1 == x2:
+        return "YES"
+    
+    while (x1 < max_position) and (x2 < max_position): 
+        x1 += v1
+        x2 += v2
+        print(x1)
+        print(x2)
+        if x1 == x2:
+            return "YES"
+    
+    return "NO"
 
-    first_multiple_input = input().rstrip().split()
+# if __name__ == '__main__':
+#     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    x1 = int(first_multiple_input[0])
+#     first_multiple_input = input().rstrip().split()
 
-    v1 = int(first_multiple_input[1])
+#     x1 = int(first_multiple_input[0])
 
-    x2 = int(first_multiple_input[2])
+#     v1 = int(first_multiple_input[1])
 
-    v2 = int(first_multiple_input[3])
+#     x2 = int(first_multiple_input[2])
 
-    result = kangaroo(x1, v1, x2, v2)
+#     v2 = int(first_multiple_input[3])
 
-    fptr.write(result + '\n')
+#     result = kangaroo(x1, v1, x2, v2)
 
-    fptr.close()
+#     fptr.write(result + '\n')
+
+#     fptr.close()
+
+# 0 2 5 3 output NO
+# 0 3 4 2 ouput YES
+
+x1 = 0
+x2 = 5
+v1 = 2
+v2 = 3
+
+
+# x1 = 0
+# x2 = 4
+# v1 = 3
+# v2 = 2
+
+print(kangaroo(x1, v1, x2, v2))
