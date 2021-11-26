@@ -67,6 +67,17 @@ Option Solution 1:
 - take x1 add v1 and take x2 and add v2
 - check if x1 is equal x2 if yes return YES else repeat
 
+Option Solution 2:
+
+include extra checks e.g.
+- check if x1 < x2 and v1 < v2 then return NO
+
+# I CHEATED AND LOOKED AT THE DISCUSSION AND FOUND THIS... MY LACK OF MATH IS AN ISSUE...
+THIS SOLUTION IS NOT CORRECT AS IT HAS TO BE X2 - X1 AND V1 - V2!
+"well, I think it is much easier than we think... We just need solve equation : 
+x1 + y * v1 = x2 + y * v2 where "y" is number of jumps... so if (x1 - x2) % (v2 - v1) == 0 then our 
+kangaroos will meet each other"
+
 
 """
 
@@ -92,21 +103,14 @@ import sys
 
 def kangaroo(x1, v1, x2, v2):
     # Write your code here
-    max_position = 10000
+    if v1 < 1 or v2 < 1 or x1 == x2 or v1 == v2 or (x1 < x2 and v1 < v2) or (x1 < 0 and x2 < x1):
+        return "NO"
 
-    if x1 == x2:
+    if (x2 - x1) % (v1 - v2) == 0:
         return "YES"
+    else: 
+        return "NO"
     
-    while (x1 < max_position) and (x2 < max_position): 
-        x1 += v1
-        x2 += v2
-        print(x1)
-        print(x2)
-        if x1 == x2:
-            return "YES"
-    
-    return "NO"
-
 # if __name__ == '__main__':
 #     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
@@ -126,18 +130,18 @@ def kangaroo(x1, v1, x2, v2):
 
 #     fptr.close()
 
-# 0 2 5 3 output NO
-# 0 3 4 2 ouput YES
-
-x1 = 0
-x2 = 5
-v1 = 2
-v2 = 3
-
+# 0 2 5 3 output NO                                      (5-0) % (2-3) = 
+# 0 3 4 2 ouput YES  if (x2 - x1) % (v1 - v2) == 0:      (4-0) % (3-2) = 0
 
 # x1 = 0
-# x2 = 4
-# v1 = 3
-# v2 = 2
+# x2 = 5
+# v1 = 2
+# v2 = 3
+
+
+x1 = 0
+x2 = 4
+v1 = 3
+v2 = 2
 
 print(kangaroo(x1, v1, x2, v2))
