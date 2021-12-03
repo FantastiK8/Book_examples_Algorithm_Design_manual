@@ -73,8 +73,10 @@ include extra checks e.g.
 - check if x1 < x2 and v1 < v2 then return NO
 
 # I CHEATED AND LOOKED AT THE DISCUSSION AND FOUND THIS... MY LACK OF MATH IS AN ISSUE...
-THIS SOLUTION IS NOT CORRECT AS IT HAS TO BE X2 - X1 AND V1 - V2!
-"well, I think it is much easier than we think... We just need solve equation : 
+THIS SOLUTION IS NOT CORRECT AS IT HAS TO BE bigger first minus smaller value
+X2 - X1 AND V1 - V2!v==> (x2 - x1) % (v1 - v2) == 0
+
+"We just need solve equation : 
 x1 + y * v1 = x2 + y * v2 where "y" is number of jumps... so if (x1 - x2) % (v2 - v1) == 0 then our 
 kangaroos will meet each other"
 
