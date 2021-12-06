@@ -81,7 +81,6 @@ Runtime: 564 ms, faster than 5.03% of Python online submissions for Counting Bit
 Memory Usage: 29.3 MB, less than 11.97% of Python online submissions for Counting Bits.
 
 NO IDEA SO FAR HOW TO OPTIMISE IT.
-
 """
 
 import numpy as np
@@ -90,28 +89,15 @@ class Solution(object):
 
     def convert_i_to_binary(self, decimal_num, remainder):
         
-        temp_sum = np.inf
         result_of_division = np.inf
         print("number to divide is ", decimal_num)
-         # Step 1: Divide the number by 2, note down the remainder:
-        # 29 ÷ 2 gives Q1 = 14, R = 1
-        
-        if decimal_num % 2 == 0 and decimal_num != 2:
+        if decimal_num % 2 == 0:# and decimal_num != 2:
             remainder += 0
             result_of_division = decimal_num / 2
             print("number divided by 2: ", decimal_num, " was devided by 2 and is = ", result_of_division)
-            if result_of_division == 1:
-                result_of_division = 0
-           # temp_sum += result_of_division
         else:
             remainder += 1
-            # print("i is ", decimal_num)
-            if decimal_num != 2:
-                result_of_division = (decimal_num - 1) / 2
-            elif decimal_num == 2:
-                result_of_division = decimal_num / 2
-                if result_of_division == 1:
-                    result_of_division = 0
+            result_of_division = (decimal_num - 1) / 2
         
         print("## \n result of division is is ", result_of_division)
         print("### result of reminder is ", remainder)
@@ -119,7 +105,6 @@ class Solution(object):
         if result_of_division >= 1:
             print("result of division is is bigger than 0 then recursivelly ", result_of_division, "\n")
             remainder = self.convert_i_to_binary(result_of_division, remainder)
-            # return remainder
         return remainder
 
     def countBits(self, n):
@@ -147,6 +132,6 @@ class Solution(object):
 
 
 sol = Solution()
-n = 2
-# n = 5
+# n = 2
+n = 5
 print(sol.countBits(n))
